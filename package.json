@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "amplify": "amplify"
+    "amplify": "amplify",
+    "deploy": "npx ampx pipeline-deploy --branch main --app-id d1q2r3s4t5u6v7w8x9y0z",
+    "sandbox": "npx ampx sandbox"
   },
   "keywords": [
     "music",
@@ -16,9 +18,15 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@aws-amplify/backend": "^0.9.0",
-    "@aws-amplify/backend-cli": "^0.9.0",
-    "aws-amplify": "^6.0.0"
+    "@aws-amplify/backend": "^1.15.0",
+    "@aws-amplify/backend-cli": "1.5.0",
+    "@aws-sdk/client-dynamodb": "^3.777.0",
+    "@aws-sdk/client-s3": "^3.777.0",
+    "@aws-sdk/lib-dynamodb": "^3.777.0",
+    "aws-amplify": "6.0.0",
+    "aws-cdk-lib": "^2.186.0",
+    "constructs": "^10.3.0",
+    "stripe": "^17.7.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

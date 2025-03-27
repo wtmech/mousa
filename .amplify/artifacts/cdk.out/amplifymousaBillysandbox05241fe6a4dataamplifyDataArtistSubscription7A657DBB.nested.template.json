@@ -1,0 +1,2311 @@
+{
+ "Parameters": {
+  "DynamoDBModelTableReadIOPS": {
+   "Type": "Number",
+   "Default": 5,
+   "Description": "The number of read IOPS the table should support."
+  },
+  "DynamoDBModelTableWriteIOPS": {
+   "Type": "Number",
+   "Default": 5,
+   "Description": "The number of write IOPS the table should support."
+  },
+  "DynamoDBBillingMode": {
+   "Type": "String",
+   "Default": "PAY_PER_REQUEST",
+   "AllowedValues": [
+    "PAY_PER_REQUEST",
+    "PROVISIONED"
+   ],
+   "Description": "Configure @model types to create DynamoDB tables with PAY_PER_REQUEST or PROVISIONED billing modes."
+  },
+  "DynamoDBEnablePointInTimeRecovery": {
+   "Type": "String",
+   "Default": "false",
+   "AllowedValues": [
+    "true",
+    "false"
+   ],
+   "Description": "Whether to enable Point in Time Recovery on the table."
+  },
+  "DynamoDBEnableServerSideEncryption": {
+   "Type": "String",
+   "Default": "true",
+   "AllowedValues": [
+    "true",
+    "false"
+   ],
+   "Description": "Enable server side encryption powered by KMS."
+  },
+  "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource6A63BD88OutputsamplifymousaBillysandbox05241fe6a4dataamplifyDataAmplifyTableManagerTableManagerCustomProviderfra818F6040": {
+   "Type": "String"
+  },
+  "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId": {
+   "Type": "String"
+  },
+  "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name": {
+   "Type": "String"
+  },
+  "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref": {
+   "Type": "String"
+  },
+  "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref": {
+   "Type": "String"
+  },
+  "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef": {
+   "Type": "String"
+  }
+ },
+ "Conditions": {
+  "HasEnvironmentParameter": {
+   "Fn::Not": [
+    {
+     "Fn::Equals": [
+      "NONE",
+      "NONE"
+     ]
+    }
+   ]
+  },
+  "ShouldUsePayPerRequestBilling": {
+   "Fn::Equals": [
+    {
+     "Ref": "DynamoDBBillingMode"
+    },
+    "PAY_PER_REQUEST"
+   ]
+  },
+  "ShouldUsePointInTimeRecovery": {
+   "Fn::Equals": [
+    {
+     "Ref": "DynamoDBEnablePointInTimeRecovery"
+    },
+    "true"
+   ]
+  },
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Resources": {
+  "ArtistSubscriptionTable": {
+   "Type": "Custom::AmplifyDynamoDBTable",
+   "Properties": {
+    "ServiceToken": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource6A63BD88OutputsamplifymousaBillysandbox05241fe6a4dataamplifyDataAmplifyTableManagerTableManagerCustomProviderfra818F6040"
+    },
+    "tableName": {
+     "Fn::Join": [
+      "",
+      [
+       "ArtistSubscription-",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "-NONE"
+      ]
+     ]
+    },
+    "attributeDefinitions": [
+     {
+      "attributeName": "id",
+      "attributeType": "S"
+     }
+    ],
+    "keySchema": [
+     {
+      "attributeName": "id",
+      "keyType": "HASH"
+     }
+    ],
+    "provisionedThroughput": {
+     "Fn::If": [
+      "ShouldUsePayPerRequestBilling",
+      {
+       "Ref": "AWS::NoValue"
+      },
+      {
+       "ReadCapacityUnits": {
+        "Ref": "DynamoDBModelTableReadIOPS"
+       },
+       "WriteCapacityUnits": {
+        "Ref": "DynamoDBModelTableWriteIOPS"
+       }
+      }
+     ]
+    },
+    "sseSpecification": {
+     "sseEnabled": false
+    },
+    "streamSpecification": {
+     "streamViewType": "NEW_AND_OLD_IMAGES"
+    },
+    "deletionProtectionEnabled": false,
+    "allowDestructiveGraphqlSchemaUpdates": true,
+    "replaceTableUponGsiUpdate": true,
+    "pointInTimeRecoverySpecification": {
+     "Fn::If": [
+      "ShouldUsePointInTimeRecovery",
+      {
+       "PointInTimeRecoveryEnabled": true
+      },
+      {
+       "Ref": "AWS::NoValue"
+      }
+     ]
+    },
+    "billingMode": {
+     "Fn::If": [
+      "ShouldUsePayPerRequestBilling",
+      "PAY_PER_REQUEST",
+      {
+       "Ref": "AWS::NoValue"
+      }
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/ArtistSubscriptionTable/Default/Default"
+   }
+  },
+  "ArtistSubscriptionIAMRole734FC87D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "appsync.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": [
+          "dynamodb:BatchGetItem",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:GetItem",
+          "dynamodb:Scan",
+          "dynamodb:Query",
+          "dynamodb:UpdateItem",
+          "dynamodb:ConditionCheckItem",
+          "dynamodb:DescribeTable",
+          "dynamodb:GetRecords",
+          "dynamodb:GetShardIterator"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          {
+           "Fn::Sub": [
+            "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+            {
+             "tablename": {
+              "Fn::Join": [
+               "",
+               [
+                "ArtistSubscription-",
+                {
+                 "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+                },
+                "-NONE"
+               ]
+              ]
+             }
+            }
+           ]
+          },
+          {
+           "Fn::Sub": [
+            "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/*",
+            {
+             "tablename": {
+              "Fn::Join": [
+               "",
+               [
+                "ArtistSubscription-",
+                {
+                 "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+                },
+                "-NONE"
+               ]
+              ]
+             }
+            }
+           ]
+          }
+         ]
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "DynamoDBAccess"
+     }
+    ],
+    "RoleName": {
+     "Fn::Join": [
+      "",
+      [
+       "ArtistSubscriptionIAb8c003-",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "-NONE"
+      ]
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/ArtistSubscriptionIAMRole/Resource"
+   }
+  },
+  "ArtistSubscriptionDataSource": {
+   "Type": "AWS::AppSync::DataSource",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DynamoDBConfig": {
+     "AwsRegion": {
+      "Ref": "AWS::Region"
+     },
+     "TableName": {
+      "Fn::Select": [
+       1,
+       {
+        "Fn::Split": [
+         "/",
+         {
+          "Fn::Select": [
+           5,
+           {
+            "Fn::Split": [
+             ":",
+             {
+              "Fn::GetAtt": [
+               "ArtistSubscriptionTable",
+               "TableArn"
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "Name": "ArtistSubscriptionTable",
+    "ServiceRoleArn": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionIAMRole734FC87D",
+      "Arn"
+     ]
+    },
+    "Type": "AMAZON_DYNAMODB"
+   },
+   "DependsOn": [
+    "ArtistSubscriptionIAMRole734FC87D"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/ArtistSubscriptionDataSource/Resource"
+   }
+  },
+  "QuerygetArtistSubscriptionpreAuth0FunctionQuerygetArtistSubscriptionpreAuth0FunctionAppSyncFunction6C7569DA": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerygetArtistSubscriptionpreAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/ffc597e18023b530e6afcbe02cee647d49550fa9e77bd06f1dee09d8b1be8de3.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QuerygetArtistSubscriptionpreAuth0Function/QuerygetArtistSubscriptionpreAuth0Function.AppSyncFunction"
+   }
+  },
+  "QuerygetArtistSubscriptionauth0FunctionQuerygetArtistSubscriptionauth0FunctionAppSyncFunctionA8736642": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerygetArtistSubscriptionauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/6b25c9b572c67e0f7ad41cb8019a90825f3db4b02a0a15b837c7a82dcb302060.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QuerygetArtistSubscriptionauth0Function/QuerygetArtistSubscriptionauth0Function.AppSyncFunction"
+   }
+  },
+  "QuerygetArtistSubscriptionpostAuth0FunctionQuerygetArtistSubscriptionpostAuth0FunctionAppSyncFunctionEA115A61": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerygetArtistSubscriptionpostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QuerygetArtistSubscriptionpostAuth0Function/QuerygetArtistSubscriptionpostAuth0Function.AppSyncFunction"
+   }
+  },
+  "QueryGetArtistSubscriptionDataResolverFnQueryGetArtistSubscriptionDataResolverFnAppSyncFunctionFF8AB55F": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QueryGetArtistSubscriptionDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/08f4d557693d96c1a4efba0f9dc91330e4b19772fd5477c156468843e3d9cb5e.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/4c6a2d29f01c6091bd1d9afe16e5849d456c96f17c3b215938c8067399532719.vtl"
+    }
+   },
+   "DependsOn": [
+    "ArtistSubscriptionDataSource"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QueryGetArtistSubscriptionDataResolverFn/QueryGetArtistSubscriptionDataResolverFn.AppSyncFunction"
+   }
+  },
+  "GetArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "getArtistSubscription",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "QuerygetArtistSubscriptionpreAuth0FunctionQuerygetArtistSubscriptionpreAuth0FunctionAppSyncFunction6C7569DA",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "QuerygetArtistSubscriptionauth0FunctionQuerygetArtistSubscriptionauth0FunctionAppSyncFunctionA8736642",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "QuerygetArtistSubscriptionpostAuth0FunctionQuerygetArtistSubscriptionpostAuth0FunctionAppSyncFunctionEA115A61",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "QueryGetArtistSubscriptionDataResolverFnQueryGetArtistSubscriptionDataResolverFnAppSyncFunctionFF8AB55F",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"getArtistSubscription\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Fn::GetAtt": [
+                 "ArtistSubscriptionTable",
+                 "TableArn"
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Query"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/queryGetArtistSubscriptionResolver"
+   }
+  },
+  "QuerylistArtistSubscriptionspreAuth0FunctionQuerylistArtistSubscriptionspreAuth0FunctionAppSyncFunctionE328B21B": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerylistArtistSubscriptionspreAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3e81312d4c75951808eda9fcd5f854c1925c0b819de0939f09c4fe2eebb190b8.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QuerylistArtistSubscriptionspreAuth0Function/QuerylistArtistSubscriptionspreAuth0Function.AppSyncFunction"
+   }
+  },
+  "QuerylistArtistSubscriptionsauth0FunctionQuerylistArtistSubscriptionsauth0FunctionAppSyncFunctionC66FA5ED": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerylistArtistSubscriptionsauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/6b25c9b572c67e0f7ad41cb8019a90825f3db4b02a0a15b837c7a82dcb302060.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QuerylistArtistSubscriptionsauth0Function/QuerylistArtistSubscriptionsauth0Function.AppSyncFunction"
+   }
+  },
+  "QuerylistArtistSubscriptionspostAuth0FunctionQuerylistArtistSubscriptionspostAuth0FunctionAppSyncFunctionF8C741F1": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerylistArtistSubscriptionspostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QuerylistArtistSubscriptionspostAuth0Function/QuerylistArtistSubscriptionspostAuth0Function.AppSyncFunction"
+   }
+  },
+  "QueryListArtistSubscriptionsDataResolverFnQueryListArtistSubscriptionsDataResolverFnAppSyncFunctionC633FA45": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QueryListArtistSubscriptionsDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9fcbe070ecd3023c5bf5b966fa9584757db9762eef123bad0820bd87591b2174.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/cc01911d0269d4080ea57505dc445dfc315ef7ad85d3d9d4ea1357858bff451d.vtl"
+    }
+   },
+   "DependsOn": [
+    "ArtistSubscriptionDataSource"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/QueryListArtistSubscriptionsDataResolverFn/QueryListArtistSubscriptionsDataResolverFn.AppSyncFunction"
+   }
+  },
+  "ListArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "listArtistSubscriptions",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "QuerylistArtistSubscriptionspreAuth0FunctionQuerylistArtistSubscriptionspreAuth0FunctionAppSyncFunctionE328B21B",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "QuerylistArtistSubscriptionsauth0FunctionQuerylistArtistSubscriptionsauth0FunctionAppSyncFunctionC66FA5ED",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "QuerylistArtistSubscriptionspostAuth0FunctionQuerylistArtistSubscriptionspostAuth0FunctionAppSyncFunctionF8C741F1",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "QueryListArtistSubscriptionsDataResolverFnQueryListArtistSubscriptionsDataResolverFnAppSyncFunctionC633FA45",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"listArtistSubscriptions\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Fn::GetAtt": [
+                 "ArtistSubscriptionTable",
+                 "TableArn"
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Query"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/queryListArtistSubscriptionsResolver"
+   }
+  },
+  "MutationcreateArtistSubscriptioninit0FunctionMutationcreateArtistSubscriptioninit0FunctionAppSyncFunctionF113DDD2": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateArtistSubscriptioninit0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a183ddccbd956316c38ef97177b8f088ef0826f62023323f5ae6053d348ccffc.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationcreateArtistSubscriptioninit0Function/MutationcreateArtistSubscriptioninit0Function.AppSyncFunction"
+   }
+  },
+  "MutationcreateArtistSubscriptionpreAuth0FunctionMutationcreateArtistSubscriptionpreAuth0FunctionAppSyncFunctionD780C3CF": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateArtistSubscriptionpreAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/39fb35c6f8e8573ffe3a63ba867cf543b05af129a104b387a44f03c3d85da0c3.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationcreateArtistSubscriptionpreAuth0Function/MutationcreateArtistSubscriptionpreAuth0Function.AppSyncFunction"
+   }
+  },
+  "MutationcreateArtistSubscriptionauth0FunctionMutationcreateArtistSubscriptionauth0FunctionAppSyncFunction750EEF7F": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateArtistSubscriptionauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/6b995507e4b8f5220ce37af745834897657c7286db9b64aee69aefdba61b0d80.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationcreateArtistSubscriptionauth0Function/MutationcreateArtistSubscriptionauth0Function.AppSyncFunction"
+   }
+  },
+  "MutationcreateArtistSubscriptionpostAuth0FunctionMutationcreateArtistSubscriptionpostAuth0FunctionAppSyncFunction9EA4CAC7": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateArtistSubscriptionpostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationcreateArtistSubscriptionpostAuth0Function/MutationcreateArtistSubscriptionpostAuth0Function.AppSyncFunction"
+   }
+  },
+  "MutationCreateArtistSubscriptionDataResolverFnMutationCreateArtistSubscriptionDataResolverFnAppSyncFunctionA036FE54": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationCreateArtistSubscriptionDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/13f628ab3077fb928dfa52b1c20f5d592eb0c6dae19beefabcfd987dd88f96ed.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f4a52b72209a9dfa197b5e7367a5c378c5bb86de6e29ddd9e48b49a3fe54b249.vtl"
+    }
+   },
+   "DependsOn": [
+    "ArtistSubscriptionDataSource"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationCreateArtistSubscriptionDataResolverFn/MutationCreateArtistSubscriptionDataResolverFn.AppSyncFunction"
+   }
+  },
+  "CreateArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "createArtistSubscription",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "MutationcreateArtistSubscriptioninit0FunctionMutationcreateArtistSubscriptioninit0FunctionAppSyncFunctionF113DDD2",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationcreateArtistSubscriptionpreAuth0FunctionMutationcreateArtistSubscriptionpreAuth0FunctionAppSyncFunctionD780C3CF",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationcreateArtistSubscriptionauth0FunctionMutationcreateArtistSubscriptionauth0FunctionAppSyncFunction750EEF7F",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationcreateArtistSubscriptionpostAuth0FunctionMutationcreateArtistSubscriptionpostAuth0FunctionAppSyncFunction9EA4CAC7",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationCreateArtistSubscriptionDataResolverFnMutationCreateArtistSubscriptionDataResolverFnAppSyncFunctionA036FE54",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"createArtistSubscription\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Fn::GetAtt": [
+                 "ArtistSubscriptionTable",
+                 "TableArn"
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Mutation"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/mutationCreateArtistSubscriptionResolver"
+   }
+  },
+  "MutationupdateArtistSubscriptioninit0FunctionMutationupdateArtistSubscriptioninit0FunctionAppSyncFunctionC8572DED": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationupdateArtistSubscriptioninit0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/06db846fd14e6fc371f22b12b5545ba8e2dbfeda85d8c8d586c71c282166657b.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationupdateArtistSubscriptioninit0Function/MutationupdateArtistSubscriptioninit0Function.AppSyncFunction"
+   }
+  },
+  "MutationupdateArtistSubscriptionpreAuth0FunctionMutationupdateArtistSubscriptionpreAuth0FunctionAppSyncFunctionDA6E9DD8": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationupdateArtistSubscriptionpreAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/39fb35c6f8e8573ffe3a63ba867cf543b05af129a104b387a44f03c3d85da0c3.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationupdateArtistSubscriptionpreAuth0Function/MutationupdateArtistSubscriptionpreAuth0Function.AppSyncFunction"
+   }
+  },
+  "MutationupdateArtistSubscriptionauth0FunctionMutationupdateArtistSubscriptionauth0FunctionAppSyncFunctionA196B53A": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationupdateArtistSubscriptionauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1f5fed297da9c32ae3af922bf3a38ccf23b956078887d16891ec06c20c64722c.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/6462efddcaa0773e4d7f7426d7a4db84baa7f1d1608a65ddfd4176efc4e3ea4b.vtl"
+    }
+   },
+   "DependsOn": [
+    "ArtistSubscriptionDataSource"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationupdateArtistSubscriptionauth0Function/MutationupdateArtistSubscriptionauth0Function.AppSyncFunction"
+   }
+  },
+  "MutationupdateArtistSubscriptionpostAuth0FunctionMutationupdateArtistSubscriptionpostAuth0FunctionAppSyncFunction7012B30F": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationupdateArtistSubscriptionpostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationupdateArtistSubscriptionpostAuth0Function/MutationupdateArtistSubscriptionpostAuth0Function.AppSyncFunction"
+   }
+  },
+  "MutationUpdateArtistSubscriptionDataResolverFnMutationUpdateArtistSubscriptionDataResolverFnAppSyncFunction16443B99": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationUpdateArtistSubscriptionDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/474bf0776ec2164a13191d1a0a9e057154931e4918fea5086f49850d02a5371b.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f4a52b72209a9dfa197b5e7367a5c378c5bb86de6e29ddd9e48b49a3fe54b249.vtl"
+    }
+   },
+   "DependsOn": [
+    "ArtistSubscriptionDataSource"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationUpdateArtistSubscriptionDataResolverFn/MutationUpdateArtistSubscriptionDataResolverFn.AppSyncFunction"
+   }
+  },
+  "UpdateArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "updateArtistSubscription",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "MutationupdateArtistSubscriptioninit0FunctionMutationupdateArtistSubscriptioninit0FunctionAppSyncFunctionC8572DED",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationupdateArtistSubscriptionpreAuth0FunctionMutationupdateArtistSubscriptionpreAuth0FunctionAppSyncFunctionDA6E9DD8",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationupdateArtistSubscriptionauth0FunctionMutationupdateArtistSubscriptionauth0FunctionAppSyncFunctionA196B53A",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationupdateArtistSubscriptionpostAuth0FunctionMutationupdateArtistSubscriptionpostAuth0FunctionAppSyncFunction7012B30F",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationUpdateArtistSubscriptionDataResolverFnMutationUpdateArtistSubscriptionDataResolverFnAppSyncFunction16443B99",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"updateArtistSubscription\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Fn::GetAtt": [
+                 "ArtistSubscriptionTable",
+                 "TableArn"
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Mutation"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/mutationUpdateArtistSubscriptionResolver"
+   }
+  },
+  "MutationdeleteArtistSubscriptionpreAuth0FunctionMutationdeleteArtistSubscriptionpreAuth0FunctionAppSyncFunction37FFC10C": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationdeleteArtistSubscriptionpreAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a2c0f8a4d76f659d130c8a445801845ae9d33e5cc2c5ecd610edc272d4bd46e3.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationdeleteArtistSubscriptionpreAuth0Function/MutationdeleteArtistSubscriptionpreAuth0Function.AppSyncFunction"
+   }
+  },
+  "MutationdeleteArtistSubscriptionauth0FunctionMutationdeleteArtistSubscriptionauth0FunctionAppSyncFunctionA8020D66": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationdeleteArtistSubscriptionauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/1f5fed297da9c32ae3af922bf3a38ccf23b956078887d16891ec06c20c64722c.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/867fb7d7eb8e4127b6d0136b82c5c3f74a52eb410297086859986f8e7e4b02aa.vtl"
+    }
+   },
+   "DependsOn": [
+    "ArtistSubscriptionDataSource"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationdeleteArtistSubscriptionauth0Function/MutationdeleteArtistSubscriptionauth0Function.AppSyncFunction"
+   }
+  },
+  "MutationdeleteArtistSubscriptionpostAuth0FunctionMutationdeleteArtistSubscriptionpostAuth0FunctionAppSyncFunction14D59851": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationdeleteArtistSubscriptionpostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationdeleteArtistSubscriptionpostAuth0Function/MutationdeleteArtistSubscriptionpostAuth0Function.AppSyncFunction"
+   }
+  },
+  "MutationDeleteArtistSubscriptionDataResolverFnMutationDeleteArtistSubscriptionDataResolverFnAppSyncFunction45A7C7A7": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "ArtistSubscriptionDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationDeleteArtistSubscriptionDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/4f7907d1209a2c9953a0c053df402c634e359546d70c7cc5c2e8e21ea734880f.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f4a52b72209a9dfa197b5e7367a5c378c5bb86de6e29ddd9e48b49a3fe54b249.vtl"
+    }
+   },
+   "DependsOn": [
+    "ArtistSubscriptionDataSource"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/MutationDeleteArtistSubscriptionDataResolverFn/MutationDeleteArtistSubscriptionDataResolverFn.AppSyncFunction"
+   }
+  },
+  "DeleteArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "deleteArtistSubscription",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "MutationdeleteArtistSubscriptionpreAuth0FunctionMutationdeleteArtistSubscriptionpreAuth0FunctionAppSyncFunction37FFC10C",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationdeleteArtistSubscriptionauth0FunctionMutationdeleteArtistSubscriptionauth0FunctionAppSyncFunctionA8020D66",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationdeleteArtistSubscriptionpostAuth0FunctionMutationdeleteArtistSubscriptionpostAuth0FunctionAppSyncFunction14D59851",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "MutationDeleteArtistSubscriptionDataResolverFnMutationDeleteArtistSubscriptionDataResolverFnAppSyncFunction45A7C7A7",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Mutation\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"deleteArtistSubscription\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"AMAZON_DYNAMODB\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n$util.qr($ctx.stash.put(\"tableName\", \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Fn::GetAtt": [
+                 "ArtistSubscriptionTable",
+                 "TableArn"
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Mutation"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/mutationDeleteArtistSubscriptionResolver"
+   }
+  },
+  "SubscriptiononCreateArtistSubscriptionauth0FunctionSubscriptiononCreateArtistSubscriptionauth0FunctionAppSyncFunction34CFAEDA": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptiononCreateArtistSubscriptionauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3b6d810ef43cdbd93ef462c40b0df0328b89e04f1473a4f82f1178da1f1d5aa0.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptiononCreateArtistSubscriptionauth0Function/SubscriptiononCreateArtistSubscriptionauth0Function.AppSyncFunction"
+   }
+  },
+  "SubscriptiononCreateArtistSubscriptionpostAuth0FunctionSubscriptiononCreateArtistSubscriptionpostAuth0FunctionAppSyncFunctionC4E82A92": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptiononCreateArtistSubscriptionpostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptiononCreateArtistSubscriptionpostAuth0Function/SubscriptiononCreateArtistSubscriptionpostAuth0Function.AppSyncFunction"
+   }
+  },
+  "SubscriptionOnCreateArtistSubscriptionDataResolverFnSubscriptionOnCreateArtistSubscriptionDataResolverFnAppSyncFunctionE1F38578": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptionOnCreateArtistSubscriptionDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/fe3c43ada4b9d681a5e2312663ef7a73386424d73b73e51f8e2e9d4b50f7c502.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e0cff47fb007f0bbf2a4e43ca256d6aa7ec109821769fd79fa7c5e83f0e7f9fc.vtl"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptionOnCreateArtistSubscriptionDataResolverFn/SubscriptionOnCreateArtistSubscriptionDataResolverFn.AppSyncFunction"
+   }
+  },
+  "SubscriptiononCreateArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "onCreateArtistSubscription",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "SubscriptiononCreateArtistSubscriptionauth0FunctionSubscriptiononCreateArtistSubscriptionauth0FunctionAppSyncFunction34CFAEDA",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "SubscriptiononCreateArtistSubscriptionpostAuth0FunctionSubscriptiononCreateArtistSubscriptionpostAuth0FunctionAppSyncFunctionC4E82A92",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "SubscriptionOnCreateArtistSubscriptionDataResolverFnSubscriptionOnCreateArtistSubscriptionDataResolverFnAppSyncFunctionE1F38578",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onCreateArtistSubscription\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Subscription"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/subscriptionOnCreateArtistSubscriptionResolver"
+   }
+  },
+  "SubscriptiononUpdateArtistSubscriptionauth0FunctionSubscriptiononUpdateArtistSubscriptionauth0FunctionAppSyncFunctionDFE9D54E": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptiononUpdateArtistSubscriptionauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3b6d810ef43cdbd93ef462c40b0df0328b89e04f1473a4f82f1178da1f1d5aa0.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptiononUpdateArtistSubscriptionauth0Function/SubscriptiononUpdateArtistSubscriptionauth0Function.AppSyncFunction"
+   }
+  },
+  "SubscriptiononUpdateArtistSubscriptionpostAuth0FunctionSubscriptiononUpdateArtistSubscriptionpostAuth0FunctionAppSyncFunctionD1908D6C": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptiononUpdateArtistSubscriptionpostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptiononUpdateArtistSubscriptionpostAuth0Function/SubscriptiononUpdateArtistSubscriptionpostAuth0Function.AppSyncFunction"
+   }
+  },
+  "SubscriptionOnUpdateArtistSubscriptionDataResolverFnSubscriptionOnUpdateArtistSubscriptionDataResolverFnAppSyncFunction82ABF02D": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptionOnUpdateArtistSubscriptionDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/fe3c43ada4b9d681a5e2312663ef7a73386424d73b73e51f8e2e9d4b50f7c502.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e0cff47fb007f0bbf2a4e43ca256d6aa7ec109821769fd79fa7c5e83f0e7f9fc.vtl"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptionOnUpdateArtistSubscriptionDataResolverFn/SubscriptionOnUpdateArtistSubscriptionDataResolverFn.AppSyncFunction"
+   }
+  },
+  "SubscriptiononUpdateArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "onUpdateArtistSubscription",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "SubscriptiononUpdateArtistSubscriptionauth0FunctionSubscriptiononUpdateArtistSubscriptionauth0FunctionAppSyncFunctionDFE9D54E",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "SubscriptiononUpdateArtistSubscriptionpostAuth0FunctionSubscriptiononUpdateArtistSubscriptionpostAuth0FunctionAppSyncFunctionD1908D6C",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "SubscriptionOnUpdateArtistSubscriptionDataResolverFnSubscriptionOnUpdateArtistSubscriptionDataResolverFnAppSyncFunction82ABF02D",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onUpdateArtistSubscription\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Subscription"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/subscriptionOnUpdateArtistSubscriptionResolver"
+   }
+  },
+  "SubscriptiononDeleteArtistSubscriptionauth0FunctionSubscriptiononDeleteArtistSubscriptionauth0FunctionAppSyncFunction0E8CF9B9": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptiononDeleteArtistSubscriptionauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3b6d810ef43cdbd93ef462c40b0df0328b89e04f1473a4f82f1178da1f1d5aa0.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptiononDeleteArtistSubscriptionauth0Function/SubscriptiononDeleteArtistSubscriptionauth0Function.AppSyncFunction"
+   }
+  },
+  "SubscriptiononDeleteArtistSubscriptionpostAuth0FunctionSubscriptiononDeleteArtistSubscriptionpostAuth0FunctionAppSyncFunction62700214": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptiononDeleteArtistSubscriptionpostAuth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c1721bcd774e27c514d3454b5be4f9bdd094c0161b57ddf053d618e3b0086a77.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptiononDeleteArtistSubscriptionpostAuth0Function/SubscriptiononDeleteArtistSubscriptionpostAuth0Function.AppSyncFunction"
+   }
+  },
+  "SubscriptionOnDeleteArtistSubscriptionDataResolverFnSubscriptionOnDeleteArtistSubscriptionDataResolverFnAppSyncFunction43A6A46F": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptionOnDeleteArtistSubscriptionDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/fe3c43ada4b9d681a5e2312663ef7a73386424d73b73e51f8e2e9d4b50f7c502.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e0cff47fb007f0bbf2a4e43ca256d6aa7ec109821769fd79fa7c5e83f0e7f9fc.vtl"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/SubscriptionOnDeleteArtistSubscriptionDataResolverFn/SubscriptionOnDeleteArtistSubscriptionDataResolverFn.AppSyncFunction"
+   }
+  },
+  "SubscriptiononDeleteArtistSubscriptionResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "onDeleteArtistSubscription",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "SubscriptiononDeleteArtistSubscriptionauth0FunctionSubscriptiononDeleteArtistSubscriptionauth0FunctionAppSyncFunction0E8CF9B9",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "SubscriptiononDeleteArtistSubscriptionpostAuth0FunctionSubscriptiononDeleteArtistSubscriptionpostAuth0FunctionAppSyncFunction62700214",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "SubscriptionOnDeleteArtistSubscriptionDataResolverFnSubscriptionOnDeleteArtistSubscriptionDataResolverFnAppSyncFunction43A6A46F",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"Subscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"onDeleteArtistSubscription\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "Subscription"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/subscriptionOnDeleteArtistSubscriptionResolver"
+   }
+  },
+  "ArtistSubscriptionOwnerDataResolverFnArtistSubscriptionOwnerDataResolverFnAppSyncFunction0A73BB13": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPINONEDS59C4F895Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "ArtistSubscriptionOwnerDataResolverFn",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/041534e5fd916595f752318f161512d7c7f83b9f2cf32d0f0be381c12253ff68.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/064303962e481067b44300212516363b99aaee539b6bafaf756fdd83ff0b60f0.vtl"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/ArtistSubscriptionOwnerDataResolverFn/ArtistSubscriptionOwnerDataResolverFn.AppSyncFunction"
+   }
+  },
+  "ArtistSubscriptionownerResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+    },
+    "FieldName": "owner",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "ArtistSubscriptionOwnerDataResolverFnArtistSubscriptionOwnerDataResolverFnAppSyncFunction0A73BB13",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "$util.qr($ctx.stash.put(\"typeName\", \"ArtistSubscription\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"owner\"))\n$util.qr($ctx.stash.put(\"conditions\", []))\n$util.qr($ctx.stash.put(\"metadata\", {}))\n$util.qr($ctx.stash.metadata.put(\"dataSourceType\", \"NONE\"))\n$util.qr($ctx.stash.metadata.put(\"apiId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"connectionAttributes\", {}))\n\n$util.qr($ctx.stash.put(\"authRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthauthenticatedUserRole5047ED49Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthunauthenticatedUserRoleC9305BA0Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4authNestedStackauthNestedStackResource6D87792AOutputsamplifymousaBillysandbox05241fe6a4authamplifyAuthIdentityPool8A6A5F0ARef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n$util.toJson({})"
+      ]
+     ]
+    },
+    "ResponseMappingTemplate": "$util.toJson($ctx.prev.result)",
+    "TypeName": "ArtistSubscription"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/artistSubscriptionOwnerResolver"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOwW6DMAyGn6X34NFW2nZdQTtuE+xemcRUKeCg2GlVId59gk6ddvr9yZ/sfwfb12fIN3iVzLou630D0weJkqsVbWeKlr8w4kBKcYEisPPqA5uKJKRoyRRJNAx/2PJjxqscJ3djHIJr4Bubng4oZDwOMFWhv9uhp9ngOMqNLUzlqpdNiYr14+R/ek9slxJF4NafUsS10e/n/kJxNrI/ogipwNsSRvZwSLYjXQrMi/uZdExq1nWtePJ8mg0HR3CWp8suh+0L5JuzeJ/FxOoHguqeP3XBbhM2AQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/data/amplifyData/ArtistSubscription/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "GetAttArtistSubscriptionTableStreamArn": {
+   "Description": "Your DynamoDB table StreamArn.",
+   "Value": {
+    "Fn::GetAtt": [
+     "ArtistSubscriptionTable",
+     "TableStreamArn"
+    ]
+   },
+   "Export": {
+    "Name": {
+     "Fn::Join": [
+      ":",
+      [
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "GetAtt:ArtistSubscriptionTable:StreamArn"
+      ]
+     ]
+    }
+   }
+  },
+  "GetAttArtistSubscriptionTableName": {
+   "Description": "Your DynamoDB table name.",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "ArtistSubscription-",
+      {
+       "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+      },
+      "-NONE"
+     ]
+    ]
+   },
+   "Export": {
+    "Name": {
+     "Fn::Join": [
+      ":",
+      [
+       {
+        "Ref": "referencetoamplifymousaBillysandbox05241fe6a4dataamplifyDataGraphQLAPI3D571A32ApiId"
+       },
+       "GetAtt:ArtistSubscriptionTable:Name"
+      ]
+     ]
+    }
+   }
+  }
+ }
+}

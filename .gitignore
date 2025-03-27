@@ -25,3 +25,22 @@ amplify/backend/team-provider-info.json
 # OS
 .DS_Store
 Thumbs.db
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# misc
+.env.development.local
+.env.test.local
+.env.production.local
+
+amplify_outputs.json

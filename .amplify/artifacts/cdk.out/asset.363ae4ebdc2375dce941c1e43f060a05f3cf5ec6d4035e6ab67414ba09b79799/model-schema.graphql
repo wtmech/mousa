@@ -1,0 +1,96 @@
+type UserProfile @model @auth(rules: [{allow: owner, ownerField: "owner"}])
+{
+  id: ID! @primaryKey
+  owner: String! @auth(rules: [{allow: owner, ownerField: "owner"}])
+  userType: String!
+  displayName: String!
+  email: String!
+  profileImage: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ArtistProfile @model @auth(rules: [{allow: owner, ownerField: "owner"}])
+{
+  id: ID! @primaryKey
+  owner: String! @auth(rules: [{allow: owner, ownerField: "owner"}])
+  userProfileId: ID!
+  artistName: String!
+  bio: String
+  genres: [String]
+  socialLinks: AWSJSON
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Release @model @auth(rules: [{allow: owner, ownerField: "owner"}])
+{
+  id: ID! @primaryKey
+  artistProfileId: ID!
+  title: String!
+  type: String!
+  coverArtKey: String!
+  coverArtUrl: String!
+  price: Float!
+  releaseDate: AWSDateTime!
+  status: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Track @model @auth(rules: [{allow: owner, ownerField: "owner"}])
+{
+  id: ID! @primaryKey
+  releaseId: ID!
+  title: String!
+  trackNumber: Int!
+  originalFileKey: String!
+  streamingFileKey: String
+  previewFileKey: String
+  waveformData: String
+  duration: Int
+  status: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type SubscriptionTier @model @auth(rules: [{allow: owner, ownerField: "owner"}])
+{
+  id: ID! @primaryKey
+  artistProfileId: ID!
+  name: String!
+  price: Float!
+  description: String!
+  benefits: [String]!
+  isActive: Boolean!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ArtistSubscription @model @auth(rules: [{allow: owner, ownerField: "owner"}])
+{
+  id: ID! @primaryKey
+  userProfileId: ID!
+  artistProfileId: ID!
+  subscriptionTierId: ID!
+  status: String!
+  stripeSubscriptionId: String!
+  currentPeriodEnd: AWSDateTime!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Purchase @model @auth(rules: [{allow: owner, ownerField: "owner"}])
+{
+  id: ID! @primaryKey
+  userProfileId: ID!
+  releaseId: ID!
+  amount: Float!
+  artistAmount: Float!
+  platformAmount: Float!
+  currency: String!
+  stripePaymentIntentId: String!
+  purchasedAt: AWSDateTime!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}

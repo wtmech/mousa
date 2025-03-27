@@ -1,0 +1,891 @@
+type UserProfile @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  userType: String!
+  displayName: String!
+  email: String!
+  profileImage: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ArtistProfile @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  owner: String!
+  userProfileId: ID!
+  artistName: String!
+  bio: String
+  genres: [String]
+  socialLinks: AWSJSON
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Release @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  artistProfileId: ID!
+  title: String!
+  type: String!
+  coverArtKey: String!
+  coverArtUrl: String!
+  price: Float!
+  releaseDate: AWSDateTime!
+  status: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type Track @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  releaseId: ID!
+  title: String!
+  trackNumber: Int!
+  originalFileKey: String!
+  streamingFileKey: String
+  previewFileKey: String
+  waveformData: String
+  duration: Int
+  status: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type SubscriptionTier @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  artistProfileId: ID!
+  name: String!
+  price: Float!
+  description: String!
+  benefits: [String]!
+  isActive: Boolean!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type ArtistSubscription @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  userProfileId: ID!
+  artistProfileId: ID!
+  subscriptionTierId: ID!
+  status: String!
+  stripeSubscriptionId: String!
+  currentPeriodEnd: AWSDateTime!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type Purchase @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  userProfileId: ID!
+  releaseId: ID!
+  amount: Float!
+  artistAmount: Float!
+  platformAmount: Float!
+  currency: String!
+  stripePaymentIntentId: String!
+  purchasedAt: AWSDateTime!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+input AmplifyAIConversationTurnErrorInput {
+  errorType: String!
+  message: String!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserProfileConnection @aws_iam @aws_cognito_user_pools {
+  items: [UserProfile]!
+  nextToken: String
+}
+
+input ModelUserProfileFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  userType: ModelStringInput
+  displayName: ModelStringInput
+  email: ModelStringInput
+  profileImage: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelUserProfileFilterInput]
+  or: [ModelUserProfileFilterInput]
+  not: ModelUserProfileFilterInput
+}
+
+type Query {
+  getUserProfile(id: ID!): UserProfile @aws_iam @aws_cognito_user_pools
+  listUserProfiles(id: ID, filter: ModelUserProfileFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelUserProfileConnection @aws_iam @aws_cognito_user_pools
+  getArtistProfile(id: ID!): ArtistProfile @aws_iam @aws_cognito_user_pools
+  listArtistProfiles(id: ID, filter: ModelArtistProfileFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelArtistProfileConnection @aws_iam @aws_cognito_user_pools
+  getRelease(id: ID!): Release @aws_iam @aws_cognito_user_pools
+  listReleases(id: ID, filter: ModelReleaseFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelReleaseConnection @aws_iam @aws_cognito_user_pools
+  getTrack(id: ID!): Track @aws_iam @aws_cognito_user_pools
+  listTracks(id: ID, filter: ModelTrackFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelTrackConnection @aws_iam @aws_cognito_user_pools
+  getSubscriptionTier(id: ID!): SubscriptionTier @aws_iam @aws_cognito_user_pools
+  listSubscriptionTiers(id: ID, filter: ModelSubscriptionTierFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelSubscriptionTierConnection @aws_iam @aws_cognito_user_pools
+  getArtistSubscription(id: ID!): ArtistSubscription @aws_iam @aws_cognito_user_pools
+  listArtistSubscriptions(id: ID, filter: ModelArtistSubscriptionFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelArtistSubscriptionConnection @aws_iam @aws_cognito_user_pools
+  getPurchase(id: ID!): Purchase @aws_iam @aws_cognito_user_pools
+  listPurchases(id: ID, filter: ModelPurchaseFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPurchaseConnection @aws_iam @aws_cognito_user_pools
+}
+
+input ModelUserProfileConditionInput {
+  owner: ModelStringInput
+  userType: ModelStringInput
+  displayName: ModelStringInput
+  email: ModelStringInput
+  profileImage: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelUserProfileConditionInput]
+  or: [ModelUserProfileConditionInput]
+  not: ModelUserProfileConditionInput
+}
+
+input CreateUserProfileInput {
+  id: ID
+  owner: String!
+  userType: String!
+  displayName: String!
+  email: String!
+  profileImage: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateUserProfileInput {
+  id: ID!
+  owner: String
+  userType: String
+  displayName: String
+  email: String
+  profileImage: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteUserProfileInput {
+  id: ID!
+}
+
+type Mutation {
+  createUserProfile(input: CreateUserProfileInput!, condition: ModelUserProfileConditionInput): UserProfile @aws_iam @aws_cognito_user_pools
+  updateUserProfile(input: UpdateUserProfileInput!, condition: ModelUserProfileConditionInput): UserProfile @aws_iam @aws_cognito_user_pools
+  deleteUserProfile(input: DeleteUserProfileInput!, condition: ModelUserProfileConditionInput): UserProfile @aws_iam @aws_cognito_user_pools
+  createArtistProfile(input: CreateArtistProfileInput!, condition: ModelArtistProfileConditionInput): ArtistProfile @aws_iam @aws_cognito_user_pools
+  updateArtistProfile(input: UpdateArtistProfileInput!, condition: ModelArtistProfileConditionInput): ArtistProfile @aws_iam @aws_cognito_user_pools
+  deleteArtistProfile(input: DeleteArtistProfileInput!, condition: ModelArtistProfileConditionInput): ArtistProfile @aws_iam @aws_cognito_user_pools
+  createRelease(input: CreateReleaseInput!, condition: ModelReleaseConditionInput): Release @aws_iam @aws_cognito_user_pools
+  updateRelease(input: UpdateReleaseInput!, condition: ModelReleaseConditionInput): Release @aws_iam @aws_cognito_user_pools
+  deleteRelease(input: DeleteReleaseInput!, condition: ModelReleaseConditionInput): Release @aws_iam @aws_cognito_user_pools
+  createTrack(input: CreateTrackInput!, condition: ModelTrackConditionInput): Track @aws_iam @aws_cognito_user_pools
+  updateTrack(input: UpdateTrackInput!, condition: ModelTrackConditionInput): Track @aws_iam @aws_cognito_user_pools
+  deleteTrack(input: DeleteTrackInput!, condition: ModelTrackConditionInput): Track @aws_iam @aws_cognito_user_pools
+  createSubscriptionTier(input: CreateSubscriptionTierInput!, condition: ModelSubscriptionTierConditionInput): SubscriptionTier @aws_iam @aws_cognito_user_pools
+  updateSubscriptionTier(input: UpdateSubscriptionTierInput!, condition: ModelSubscriptionTierConditionInput): SubscriptionTier @aws_iam @aws_cognito_user_pools
+  deleteSubscriptionTier(input: DeleteSubscriptionTierInput!, condition: ModelSubscriptionTierConditionInput): SubscriptionTier @aws_iam @aws_cognito_user_pools
+  createArtistSubscription(input: CreateArtistSubscriptionInput!, condition: ModelArtistSubscriptionConditionInput): ArtistSubscription @aws_iam @aws_cognito_user_pools
+  updateArtistSubscription(input: UpdateArtistSubscriptionInput!, condition: ModelArtistSubscriptionConditionInput): ArtistSubscription @aws_iam @aws_cognito_user_pools
+  deleteArtistSubscription(input: DeleteArtistSubscriptionInput!, condition: ModelArtistSubscriptionConditionInput): ArtistSubscription @aws_iam @aws_cognito_user_pools
+  createPurchase(input: CreatePurchaseInput!, condition: ModelPurchaseConditionInput): Purchase @aws_iam @aws_cognito_user_pools
+  updatePurchase(input: UpdatePurchaseInput!, condition: ModelPurchaseConditionInput): Purchase @aws_iam @aws_cognito_user_pools
+  deletePurchase(input: DeletePurchaseInput!, condition: ModelPurchaseConditionInput): Purchase @aws_iam @aws_cognito_user_pools
+}
+
+input ModelSubscriptionUserProfileFilterInput {
+  id: ModelSubscriptionIDInput
+  userType: ModelSubscriptionStringInput
+  displayName: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  profileImage: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionUserProfileFilterInput]
+  or: [ModelSubscriptionUserProfileFilterInput]
+  owner: ModelStringInput
+}
+
+type Subscription {
+  onCreateUserProfile(filter: ModelSubscriptionUserProfileFilterInput, owner: String): UserProfile @aws_subscribe(mutations: ["createUserProfile"]) @aws_iam @aws_cognito_user_pools
+  onUpdateUserProfile(filter: ModelSubscriptionUserProfileFilterInput, owner: String): UserProfile @aws_subscribe(mutations: ["updateUserProfile"]) @aws_iam @aws_cognito_user_pools
+  onDeleteUserProfile(filter: ModelSubscriptionUserProfileFilterInput, owner: String): UserProfile @aws_subscribe(mutations: ["deleteUserProfile"]) @aws_iam @aws_cognito_user_pools
+  onCreateArtistProfile(filter: ModelSubscriptionArtistProfileFilterInput, owner: String): ArtistProfile @aws_subscribe(mutations: ["createArtistProfile"]) @aws_iam @aws_cognito_user_pools
+  onUpdateArtistProfile(filter: ModelSubscriptionArtistProfileFilterInput, owner: String): ArtistProfile @aws_subscribe(mutations: ["updateArtistProfile"]) @aws_iam @aws_cognito_user_pools
+  onDeleteArtistProfile(filter: ModelSubscriptionArtistProfileFilterInput, owner: String): ArtistProfile @aws_subscribe(mutations: ["deleteArtistProfile"]) @aws_iam @aws_cognito_user_pools
+  onCreateRelease(filter: ModelSubscriptionReleaseFilterInput, owner: String): Release @aws_subscribe(mutations: ["createRelease"]) @aws_iam @aws_cognito_user_pools
+  onUpdateRelease(filter: ModelSubscriptionReleaseFilterInput, owner: String): Release @aws_subscribe(mutations: ["updateRelease"]) @aws_iam @aws_cognito_user_pools
+  onDeleteRelease(filter: ModelSubscriptionReleaseFilterInput, owner: String): Release @aws_subscribe(mutations: ["deleteRelease"]) @aws_iam @aws_cognito_user_pools
+  onCreateTrack(filter: ModelSubscriptionTrackFilterInput, owner: String): Track @aws_subscribe(mutations: ["createTrack"]) @aws_iam @aws_cognito_user_pools
+  onUpdateTrack(filter: ModelSubscriptionTrackFilterInput, owner: String): Track @aws_subscribe(mutations: ["updateTrack"]) @aws_iam @aws_cognito_user_pools
+  onDeleteTrack(filter: ModelSubscriptionTrackFilterInput, owner: String): Track @aws_subscribe(mutations: ["deleteTrack"]) @aws_iam @aws_cognito_user_pools
+  onCreateSubscriptionTier(filter: ModelSubscriptionSubscriptionTierFilterInput, owner: String): SubscriptionTier @aws_subscribe(mutations: ["createSubscriptionTier"]) @aws_iam @aws_cognito_user_pools
+  onUpdateSubscriptionTier(filter: ModelSubscriptionSubscriptionTierFilterInput, owner: String): SubscriptionTier @aws_subscribe(mutations: ["updateSubscriptionTier"]) @aws_iam @aws_cognito_user_pools
+  onDeleteSubscriptionTier(filter: ModelSubscriptionSubscriptionTierFilterInput, owner: String): SubscriptionTier @aws_subscribe(mutations: ["deleteSubscriptionTier"]) @aws_iam @aws_cognito_user_pools
+  onCreateArtistSubscription(filter: ModelSubscriptionArtistSubscriptionFilterInput, owner: String): ArtistSubscription @aws_subscribe(mutations: ["createArtistSubscription"]) @aws_iam @aws_cognito_user_pools
+  onUpdateArtistSubscription(filter: ModelSubscriptionArtistSubscriptionFilterInput, owner: String): ArtistSubscription @aws_subscribe(mutations: ["updateArtistSubscription"]) @aws_iam @aws_cognito_user_pools
+  onDeleteArtistSubscription(filter: ModelSubscriptionArtistSubscriptionFilterInput, owner: String): ArtistSubscription @aws_subscribe(mutations: ["deleteArtistSubscription"]) @aws_iam @aws_cognito_user_pools
+  onCreatePurchase(filter: ModelSubscriptionPurchaseFilterInput, owner: String): Purchase @aws_subscribe(mutations: ["createPurchase"]) @aws_iam @aws_cognito_user_pools
+  onUpdatePurchase(filter: ModelSubscriptionPurchaseFilterInput, owner: String): Purchase @aws_subscribe(mutations: ["updatePurchase"]) @aws_iam @aws_cognito_user_pools
+  onDeletePurchase(filter: ModelSubscriptionPurchaseFilterInput, owner: String): Purchase @aws_subscribe(mutations: ["deletePurchase"]) @aws_iam @aws_cognito_user_pools
+}
+
+type ModelArtistProfileConnection @aws_iam @aws_cognito_user_pools {
+  items: [ArtistProfile]!
+  nextToken: String
+}
+
+input ModelArtistProfileFilterInput {
+  id: ModelIDInput
+  owner: ModelStringInput
+  userProfileId: ModelIDInput
+  artistName: ModelStringInput
+  bio: ModelStringInput
+  genres: ModelStringInput
+  socialLinks: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelArtistProfileFilterInput]
+  or: [ModelArtistProfileFilterInput]
+  not: ModelArtistProfileFilterInput
+}
+
+input ModelArtistProfileConditionInput {
+  owner: ModelStringInput
+  userProfileId: ModelIDInput
+  artistName: ModelStringInput
+  bio: ModelStringInput
+  genres: ModelStringInput
+  socialLinks: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelArtistProfileConditionInput]
+  or: [ModelArtistProfileConditionInput]
+  not: ModelArtistProfileConditionInput
+}
+
+input CreateArtistProfileInput {
+  id: ID
+  owner: String!
+  userProfileId: ID!
+  artistName: String!
+  bio: String
+  genres: [String]
+  socialLinks: AWSJSON
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateArtistProfileInput {
+  id: ID!
+  owner: String
+  userProfileId: ID
+  artistName: String
+  bio: String
+  genres: [String]
+  socialLinks: AWSJSON
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteArtistProfileInput {
+  id: ID!
+}
+
+input ModelSubscriptionArtistProfileFilterInput {
+  id: ModelSubscriptionIDInput
+  userProfileId: ModelSubscriptionIDInput
+  artistName: ModelSubscriptionStringInput
+  bio: ModelSubscriptionStringInput
+  genres: ModelSubscriptionStringInput
+  socialLinks: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionArtistProfileFilterInput]
+  or: [ModelSubscriptionArtistProfileFilterInput]
+  owner: ModelStringInput
+}
+
+type ModelReleaseConnection @aws_iam @aws_cognito_user_pools {
+  items: [Release]!
+  nextToken: String
+}
+
+input ModelReleaseFilterInput {
+  id: ModelIDInput
+  artistProfileId: ModelIDInput
+  title: ModelStringInput
+  type: ModelStringInput
+  coverArtKey: ModelStringInput
+  coverArtUrl: ModelStringInput
+  price: ModelFloatInput
+  releaseDate: ModelStringInput
+  status: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelReleaseFilterInput]
+  or: [ModelReleaseFilterInput]
+  not: ModelReleaseFilterInput
+  owner: ModelStringInput
+}
+
+input ModelReleaseConditionInput {
+  artistProfileId: ModelIDInput
+  title: ModelStringInput
+  type: ModelStringInput
+  coverArtKey: ModelStringInput
+  coverArtUrl: ModelStringInput
+  price: ModelFloatInput
+  releaseDate: ModelStringInput
+  status: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelReleaseConditionInput]
+  or: [ModelReleaseConditionInput]
+  not: ModelReleaseConditionInput
+  owner: ModelStringInput
+}
+
+input CreateReleaseInput {
+  id: ID
+  artistProfileId: ID!
+  title: String!
+  type: String!
+  coverArtKey: String!
+  coverArtUrl: String!
+  price: Float!
+  releaseDate: AWSDateTime!
+  status: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateReleaseInput {
+  id: ID!
+  artistProfileId: ID
+  title: String
+  type: String
+  coverArtKey: String
+  coverArtUrl: String
+  price: Float
+  releaseDate: AWSDateTime
+  status: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteReleaseInput {
+  id: ID!
+}
+
+input ModelSubscriptionReleaseFilterInput {
+  id: ModelSubscriptionIDInput
+  artistProfileId: ModelSubscriptionIDInput
+  title: ModelSubscriptionStringInput
+  type: ModelSubscriptionStringInput
+  coverArtKey: ModelSubscriptionStringInput
+  coverArtUrl: ModelSubscriptionStringInput
+  price: ModelSubscriptionFloatInput
+  releaseDate: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionReleaseFilterInput]
+  or: [ModelSubscriptionReleaseFilterInput]
+  owner: ModelStringInput
+}
+
+type ModelTrackConnection @aws_iam @aws_cognito_user_pools {
+  items: [Track]!
+  nextToken: String
+}
+
+input ModelTrackFilterInput {
+  id: ModelIDInput
+  releaseId: ModelIDInput
+  title: ModelStringInput
+  trackNumber: ModelIntInput
+  originalFileKey: ModelStringInput
+  streamingFileKey: ModelStringInput
+  previewFileKey: ModelStringInput
+  waveformData: ModelStringInput
+  duration: ModelIntInput
+  status: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelTrackFilterInput]
+  or: [ModelTrackFilterInput]
+  not: ModelTrackFilterInput
+  owner: ModelStringInput
+}
+
+input ModelTrackConditionInput {
+  releaseId: ModelIDInput
+  title: ModelStringInput
+  trackNumber: ModelIntInput
+  originalFileKey: ModelStringInput
+  streamingFileKey: ModelStringInput
+  previewFileKey: ModelStringInput
+  waveformData: ModelStringInput
+  duration: ModelIntInput
+  status: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelTrackConditionInput]
+  or: [ModelTrackConditionInput]
+  not: ModelTrackConditionInput
+  owner: ModelStringInput
+}
+
+input CreateTrackInput {
+  id: ID
+  releaseId: ID!
+  title: String!
+  trackNumber: Int!
+  originalFileKey: String!
+  streamingFileKey: String
+  previewFileKey: String
+  waveformData: String
+  duration: Int
+  status: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateTrackInput {
+  id: ID!
+  releaseId: ID
+  title: String
+  trackNumber: Int
+  originalFileKey: String
+  streamingFileKey: String
+  previewFileKey: String
+  waveformData: String
+  duration: Int
+  status: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteTrackInput {
+  id: ID!
+}
+
+input ModelSubscriptionTrackFilterInput {
+  id: ModelSubscriptionIDInput
+  releaseId: ModelSubscriptionIDInput
+  title: ModelSubscriptionStringInput
+  trackNumber: ModelSubscriptionIntInput
+  originalFileKey: ModelSubscriptionStringInput
+  streamingFileKey: ModelSubscriptionStringInput
+  previewFileKey: ModelSubscriptionStringInput
+  waveformData: ModelSubscriptionStringInput
+  duration: ModelSubscriptionIntInput
+  status: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionTrackFilterInput]
+  or: [ModelSubscriptionTrackFilterInput]
+  owner: ModelStringInput
+}
+
+type ModelSubscriptionTierConnection @aws_iam @aws_cognito_user_pools {
+  items: [SubscriptionTier]!
+  nextToken: String
+}
+
+input ModelSubscriptionTierFilterInput {
+  id: ModelIDInput
+  artistProfileId: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  benefits: ModelStringInput
+  isActive: ModelBooleanInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelSubscriptionTierFilterInput]
+  or: [ModelSubscriptionTierFilterInput]
+  not: ModelSubscriptionTierFilterInput
+  owner: ModelStringInput
+}
+
+input ModelSubscriptionTierConditionInput {
+  artistProfileId: ModelIDInput
+  name: ModelStringInput
+  price: ModelFloatInput
+  description: ModelStringInput
+  benefits: ModelStringInput
+  isActive: ModelBooleanInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelSubscriptionTierConditionInput]
+  or: [ModelSubscriptionTierConditionInput]
+  not: ModelSubscriptionTierConditionInput
+  owner: ModelStringInput
+}
+
+input CreateSubscriptionTierInput {
+  id: ID
+  artistProfileId: ID!
+  name: String!
+  price: Float!
+  description: String!
+  benefits: [String]!
+  isActive: Boolean!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateSubscriptionTierInput {
+  id: ID!
+  artistProfileId: ID
+  name: String
+  price: Float
+  description: String
+  benefits: [String]
+  isActive: Boolean
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteSubscriptionTierInput {
+  id: ID!
+}
+
+input ModelSubscriptionSubscriptionTierFilterInput {
+  id: ModelSubscriptionIDInput
+  artistProfileId: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  price: ModelSubscriptionFloatInput
+  description: ModelSubscriptionStringInput
+  benefits: ModelSubscriptionStringInput
+  isActive: ModelSubscriptionBooleanInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionSubscriptionTierFilterInput]
+  or: [ModelSubscriptionSubscriptionTierFilterInput]
+  owner: ModelStringInput
+}
+
+type ModelArtistSubscriptionConnection @aws_iam @aws_cognito_user_pools {
+  items: [ArtistSubscription]!
+  nextToken: String
+}
+
+input ModelArtistSubscriptionFilterInput {
+  id: ModelIDInput
+  userProfileId: ModelIDInput
+  artistProfileId: ModelIDInput
+  subscriptionTierId: ModelIDInput
+  status: ModelStringInput
+  stripeSubscriptionId: ModelStringInput
+  currentPeriodEnd: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelArtistSubscriptionFilterInput]
+  or: [ModelArtistSubscriptionFilterInput]
+  not: ModelArtistSubscriptionFilterInput
+  owner: ModelStringInput
+}
+
+input ModelArtistSubscriptionConditionInput {
+  userProfileId: ModelIDInput
+  artistProfileId: ModelIDInput
+  subscriptionTierId: ModelIDInput
+  status: ModelStringInput
+  stripeSubscriptionId: ModelStringInput
+  currentPeriodEnd: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelArtistSubscriptionConditionInput]
+  or: [ModelArtistSubscriptionConditionInput]
+  not: ModelArtistSubscriptionConditionInput
+  owner: ModelStringInput
+}
+
+input CreateArtistSubscriptionInput {
+  id: ID
+  userProfileId: ID!
+  artistProfileId: ID!
+  subscriptionTierId: ID!
+  status: String!
+  stripeSubscriptionId: String!
+  currentPeriodEnd: AWSDateTime!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdateArtistSubscriptionInput {
+  id: ID!
+  userProfileId: ID
+  artistProfileId: ID
+  subscriptionTierId: ID
+  status: String
+  stripeSubscriptionId: String
+  currentPeriodEnd: AWSDateTime
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeleteArtistSubscriptionInput {
+  id: ID!
+}
+
+input ModelSubscriptionArtistSubscriptionFilterInput {
+  id: ModelSubscriptionIDInput
+  userProfileId: ModelSubscriptionIDInput
+  artistProfileId: ModelSubscriptionIDInput
+  subscriptionTierId: ModelSubscriptionIDInput
+  status: ModelSubscriptionStringInput
+  stripeSubscriptionId: ModelSubscriptionStringInput
+  currentPeriodEnd: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionArtistSubscriptionFilterInput]
+  or: [ModelSubscriptionArtistSubscriptionFilterInput]
+  owner: ModelStringInput
+}
+
+type ModelPurchaseConnection @aws_iam @aws_cognito_user_pools {
+  items: [Purchase]!
+  nextToken: String
+}
+
+input ModelPurchaseFilterInput {
+  id: ModelIDInput
+  userProfileId: ModelIDInput
+  releaseId: ModelIDInput
+  amount: ModelFloatInput
+  artistAmount: ModelFloatInput
+  platformAmount: ModelFloatInput
+  currency: ModelStringInput
+  stripePaymentIntentId: ModelStringInput
+  purchasedAt: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelPurchaseFilterInput]
+  or: [ModelPurchaseFilterInput]
+  not: ModelPurchaseFilterInput
+  owner: ModelStringInput
+}
+
+input ModelPurchaseConditionInput {
+  userProfileId: ModelIDInput
+  releaseId: ModelIDInput
+  amount: ModelFloatInput
+  artistAmount: ModelFloatInput
+  platformAmount: ModelFloatInput
+  currency: ModelStringInput
+  stripePaymentIntentId: ModelStringInput
+  purchasedAt: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelPurchaseConditionInput]
+  or: [ModelPurchaseConditionInput]
+  not: ModelPurchaseConditionInput
+  owner: ModelStringInput
+}
+
+input CreatePurchaseInput {
+  id: ID
+  userProfileId: ID!
+  releaseId: ID!
+  amount: Float!
+  artistAmount: Float!
+  platformAmount: Float!
+  currency: String!
+  stripePaymentIntentId: String!
+  purchasedAt: AWSDateTime!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input UpdatePurchaseInput {
+  id: ID!
+  userProfileId: ID
+  releaseId: ID
+  amount: Float
+  artistAmount: Float
+  platformAmount: Float
+  currency: String
+  stripePaymentIntentId: String
+  purchasedAt: AWSDateTime
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+input DeletePurchaseInput {
+  id: ID!
+}
+
+input ModelSubscriptionPurchaseFilterInput {
+  id: ModelSubscriptionIDInput
+  userProfileId: ModelSubscriptionIDInput
+  releaseId: ModelSubscriptionIDInput
+  amount: ModelSubscriptionFloatInput
+  artistAmount: ModelSubscriptionFloatInput
+  platformAmount: ModelSubscriptionFloatInput
+  currency: ModelSubscriptionStringInput
+  stripePaymentIntentId: ModelSubscriptionStringInput
+  purchasedAt: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionPurchaseFilterInput]
+  or: [ModelSubscriptionPurchaseFilterInput]
+  owner: ModelStringInput
+}
