@@ -1,0 +1,162 @@
+type UserProfile
+  @model
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admins"] }]) {
+  id: ID!
+  owner: String!
+  userType: UserType!
+  displayName: String!
+  email: String!
+  profileImage: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ArtistProfile
+  @model
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admins"] }]) {
+  id: ID!
+  owner: String!
+  userProfileId: ID!
+  userProfile: UserProfile @connection(fields: ["userProfileId"])
+  artistName: String!
+  bio: String
+  genres: [String]
+  socialLinks: AWSJSON
+  subscriptionTiers: [SubscriptionTier] @hasMany
+  releases: [Release] @hasMany
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Release
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["admins"] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  artistProfileId: ID!
+  artistProfile: ArtistProfile @connection(fields: ["artistProfileId"])
+  title: String!
+  type: ReleaseType!
+  coverArtKey: String!
+  coverArtUrl: String!
+  price: Float!
+  releaseDate: AWSDateTime!
+  tracks: [Track] @hasMany
+  status: ReleaseStatus!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Track
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["admins"] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  releaseId: ID!
+  release: Release @connection(fields: ["releaseId"])
+  title: String!
+  trackNumber: Int!
+  originalFileKey: String!
+  streamingFileKey: String
+  previewFileKey: String
+  waveformData: String
+  duration: Int
+  status: TrackStatus!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type SubscriptionTier
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["admins"] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  artistProfileId: ID!
+  artistProfile: ArtistProfile @connection(fields: ["artistProfileId"])
+  name: String!
+  price: Float!
+  description: String!
+  benefits: [String]!
+  isActive: Boolean!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type ArtistSubscription
+  @model
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admins"] }]) {
+  id: ID!
+  userProfileId: ID!
+  userProfile: UserProfile @connection(fields: ["userProfileId"])
+  artistProfileId: ID!
+  artistProfile: ArtistProfile @connection(fields: ["artistProfileId"])
+  subscriptionTierId: ID!
+  subscriptionTier: SubscriptionTier @connection(fields: ["subscriptionTierId"])
+  status: SubscriptionStatus!
+  stripeSubscriptionId: String!
+  currentPeriodEnd: AWSDateTime!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Purchase
+  @model
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admins"] }]) {
+  id: ID!
+  userProfileId: ID!
+  userProfile: UserProfile @connection(fields: ["userProfileId"])
+  releaseId: ID!
+  release: Release @connection(fields: ["releaseId"])
+  amount: Float!
+  artistAmount: Float!
+  platformAmount: Float!
+  currency: String!
+  stripePaymentIntentId: String!
+  purchasedAt: AWSDateTime!
+}
+
+enum UserType {
+  ARTIST
+  LISTENER
+}
+
+enum ReleaseType {
+  ALBUM
+  EP
+  SINGLE
+}
+
+enum ReleaseStatus {
+  DRAFT
+  PROCESSING
+  READY
+  PUBLISHED
+  ERROR
+}
+
+enum TrackStatus {
+  PROCESSING
+  READY
+  ERROR
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+}
