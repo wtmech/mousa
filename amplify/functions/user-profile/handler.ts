@@ -1,110 +1,137 @@
-import type { Handler } from 'aws-lambda';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, PutCommand, GetCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { type Schema } from '../../data/resource';
+import { generateClient } from 'aws-amplify/data';
+import { Amplify } from 'aws-amplify';
+import { getAmplifyDataClientConfig } from '@aws-amplify/backend/function/runtime';
+import { env } from '$amplify/env/user-profile';
 
-const client = new DynamoDBClient({});
-const docClient = DynamoDBDocumentClient.from(client);
+interface UserProfileData {
+  id?: string;
+  owner: string;
+  userType: string;
+  displayName: string;
+  email: string;
+  profileImage?: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
-export const handler: Handler = async (event, context) => {
+interface UserProfileUpdateData extends Omit<UserProfileData, 'id'> {
+  id: string;
+}
+
+interface UserProfileEvent {
+  operation: 'create' | 'get' | 'update' | 'delete';
+  data?: UserProfileData | UserProfileUpdateData;
+  id?: string;
+}
+
+interface UserProfileResponse {
+  statusCode: number;
+  body: string;
+}
+
+export const handler = async (event: UserProfileEvent): Promise<UserProfileResponse> => {
   try {
-    const { operation, userId, data } = JSON.parse(event.body || '{}');
+    // Configure Amplify with the data client config
+    const { resourceConfig, libraryOptions } = await getAmplifyDataClientConfig({
+      ...env,
+      AMPLIFY_DATA_DEFAULT_NAME: 'default'
+    });
+    Amplify.configure(resourceConfig, libraryOptions);
 
-    switch (operation) {
-      case 'createProfile':
-        return await createProfile(userId, data);
-      case 'getProfile':
-        return await getProfile(userId);
-      case 'updateProfile':
-        return await updateProfile(userId, data);
+    // Generate the client
+    const client = generateClient<Schema>();
+
+    // Validate required fields for create and update operations
+    if ((event.operation === 'create' || event.operation === 'update') && event.data) {
+      const { userType, displayName, email } = event.data;
+      if (!userType || !displayName || !email) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ message: 'Missing required fields: userType, displayName, and email are required' })
+        };
+      }
+    }
+
+    // Handle the operations
+    switch (event.operation) {
+      case 'create': {
+        if (!event.data) {
+          return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'No data provided for create operation' })
+          };
+        }
+        const result = await client.models.UserProfile.create(event.data);
+        return {
+          statusCode: 201,
+          body: JSON.stringify(result.data)
+        };
+      }
+
+      case 'get': {
+        if (!event.id) {
+          return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'ID is required for get operation' })
+          };
+        }
+        const result = await client.models.UserProfile.get({ id: event.id });
+        if (!result.data) {
+          return {
+            statusCode: 404,
+            body: JSON.stringify({ message: 'User profile not found' })
+          };
+        }
+        return {
+          statusCode: 200,
+          body: JSON.stringify(result.data)
+        };
+      }
+
+      case 'update': {
+        if (!event.data || !('id' in event.data)) {
+          return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'ID and data are required for update operation' })
+          };
+        }
+        const updateData = event.data as UserProfileUpdateData;
+        const result = await client.models.UserProfile.update(updateData);
+        return {
+          statusCode: 200,
+          body: JSON.stringify(result.data)
+        };
+      }
+
+      case 'delete': {
+        if (!event.id) {
+          return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'ID is required for delete operation' })
+          };
+        }
+        const result = await client.models.UserProfile.delete({ id: event.id });
+        return {
+          statusCode: 200,
+          body: JSON.stringify(result.data)
+        };
+      }
+
       default:
         return {
           statusCode: 400,
-          body: JSON.stringify({ error: 'Invalid operation' })
+          body: JSON.stringify({ message: 'Invalid operation' })
         };
     }
-  } catch (err) {
-    console.error('Error:', err);
+  } catch (error: unknown) {
+    console.error('Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal server error' })
+      body: JSON.stringify({
+        message: 'Internal server error',
+        error: error instanceof Error ? error.message : String(error)
+      })
     };
   }
 };
-
-async function createProfile(userId: string, data: any) {
-  const command = new PutCommand({
-    TableName: process.env.USER_PROFILE_TABLE || 'UserProfile',
-    Item: {
-      id: userId,
-      owner: userId,
-      userType: data.userType || 'user',
-      displayName: data.displayName,
-      email: data.email,
-      profileImage: data.profileImage,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    }
-  });
-
-  await docClient.send(command);
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: 'Profile created successfully' })
-  };
-}
-
-async function getProfile(userId: string) {
-  const command = new GetCommand({
-    TableName: process.env.USER_PROFILE_TABLE || 'UserProfile',
-    Key: { id: userId }
-  });
-
-  const { Item } = await docClient.send(command);
-  return {
-    statusCode: 200,
-    body: JSON.stringify(Item || { error: 'Profile not found' })
-  };
-}
-
-async function updateProfile(userId: string, data: any) {
-  const updateExpressions: string[] = [];
-  const expressionAttributeNames: Record<string, string> = {};
-  const expressionAttributeValues: Record<string, any> = {};
-
-  if (data.displayName) {
-    updateExpressions.push('#displayName = :displayName');
-    expressionAttributeNames['#displayName'] = 'displayName';
-    expressionAttributeValues[':displayName'] = data.displayName;
-  }
-
-  if (data.profileImage) {
-    updateExpressions.push('#profileImage = :profileImage');
-    expressionAttributeNames['#profileImage'] = 'profileImage';
-    expressionAttributeValues[':profileImage'] = data.profileImage;
-  }
-
-  if (updateExpressions.length === 0) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: 'No fields to update' })
-    };
-  }
-
-  updateExpressions.push('#updatedAt = :updatedAt');
-  expressionAttributeNames['#updatedAt'] = 'updatedAt';
-  expressionAttributeValues[':updatedAt'] = new Date().toISOString();
-
-  const command = new UpdateCommand({
-    TableName: process.env.USER_PROFILE_TABLE || 'UserProfile',
-    Key: { id: userId },
-    UpdateExpression: `SET ${updateExpressions.join(', ')}`,
-    ExpressionAttributeNames: expressionAttributeNames,
-    ExpressionAttributeValues: expressionAttributeValues
-  });
-
-  await docClient.send(command);
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: 'Profile updated successfully' })
-  };
-}

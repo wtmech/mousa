@@ -277,7 +277,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "32232c9bb2cbf516f3c8e8573cb743998bb7f74ce8f5f3dafa2d0fede8073e27.zip"
+     "S3Key": "8b5e5a70c5a434021a5b4f0d8c6f9c13c75e136e7948c52e97ae5ecc250174f8.zip"
     },
     "Environment": {
      "Variables": {
@@ -319,7 +319,7 @@
    "DeletionPolicy": "Delete",
    "Metadata": {
     "aws:cdk:path": "amplify-mousa-Billy-sandbox-05241fe6a4/function/user-profile-lambda/Resource",
-    "aws:asset:path": "asset.32232c9bb2cbf516f3c8e8573cb743998bb7f74ce8f5f3dafa2d0fede8073e27",
+    "aws:asset:path": "asset.8b5e5a70c5a434021a5b4f0d8c6f9c13c75e136e7948c52e97ae5ecc250174f8",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
